@@ -19,7 +19,7 @@ import api from "@/api/api";
 function Cart({ cart }) {
   // const { cart } = useSelector((state) => state.cart);
   // const { cartQuantity } = useSelector((state) => state.cart);
-  // console.log(cart);
+  console.log(cart);
 
   // const dispatch = useDispatch();
 

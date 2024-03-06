@@ -6,6 +6,7 @@ import { ImHappy } from "react-icons/im";
 import { MdCompare } from "react-icons/md";
 import { FaShareSquare } from "react-icons/fa";
 import { GiTwoCoins } from "react-icons/gi";
+import axios from 'axios';
 import {
   AiOutlineHeart,
   AiFillHeart,
@@ -107,6 +108,35 @@ const InitialProductInfo = ({ productData, id }) => {
 
     addToCart(cartData);
   }
+
+  const addtoCart = async () => {
+    try {
+      // console.log(productData );
+      // console.log(id);
+      // console.log(buyInfo.quantity);
+      // const response = await axios.post("http://localhost:5000/api/cart", {
+      //   productId : id,
+      //   quantity : buyInfo.quantity
+      // },
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${localStorage.getItem("token")}`
+      //   });
+      const response = await axios.post("http://localhost:5000/api/cart", {
+    productId: id,
+    quantity: buyInfo.quantity
+      }, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+      console.log(response.data); // Assuming you want to log the cart data after adding to cart
+      // // Optionally, you can handle success or show a message to the user
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      // Optionally, you can handle error or show a message to the user
+    }
+  };
 
   return (
     <div className="block mb-8 text-[#666] z-[100]">
@@ -234,7 +264,7 @@ const InitialProductInfo = ({ productData, id }) => {
           href="#"
           className="hover:text-cyan-300 hover:underline text-gray-700 border-[2px] border-transparent px-4 py-2 w-fit m-2 ml-0"
         >
-          <span className="text-[1rem] uppercase transition-all flex flex-row align-middle items-center font-bold">
+          <span className="text-[1rem] uppercase transition-all flex flex-row align-middle items-center font-bold" onClick={addtoCart}>
             <div className="mr-3 pt-[0.5px] text-2xl">
               <BsCartPlus />
             </div>

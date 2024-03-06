@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import AddAddressForm from './AddAddressForm';
 import { useAuthenticate } from '@/context/AuthContext';
 import api from '@/api/api';
+import axios from "axios";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const [addresses, setAddresses] = useState([]);
+  const [products, setProducts] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
@@ -16,6 +18,28 @@ const Checkout = () => {
     if (userData && userData.addresses) {
       setAddresses(userData.addresses);
     }
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get("/cart", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+        const data = response.data;
+        // console.log(response.data.items);
+        setProducts(response.data.items);
+        // dispatch(setCart(data));
+        console.log("products");
+        console.log(products);
+      } catch (error) {
+        console.error(`Error fetching blogs: ${error}`);
+      } finally {
+        // setLoading(false);
+      }
+    };
+    fetchProducts();
+
+
   }, []);
 
   const navigate=useNavigate();
@@ -25,9 +49,9 @@ const Checkout = () => {
 //   const subtotal = cart && cart.items.reduce((total, item) => {
 //     return total + (item.product.price * item.quantity);
 // }, 0);
-const subtotal = cart && cart.items ? cart.items.reduce((total, item) => {
+const subtotal = products && products.reduce((total, item) => {
   return total + (item.product.price * item.quantity);
-}, 0) : 0;
+}, 0) ;
 
   const handleAddressChange = (address) => {
     setSelectedAddress(address);
@@ -38,13 +62,15 @@ const subtotal = cart && cart.items ? cart.items.reduce((total, item) => {
   };
 
   const handleProceedToCheckout = async () => {
+    console.log("first it comes")
     if (!selectedAddress || !selectedPaymentMethod) {
       // Check if address and payment method are selected
       alert('Please select both address and payment method');
       return;
     }
-
-    const orderItems = cart.items.map(item => ({
+    console.log('cart items');
+    console.log(cart.items);
+    const orderItems = products && products.map(item => ({
       productId: item.product._id, // Assuming product ID is stored in _id field
       quantity: item.quantity,
       price: item.product.price
@@ -57,9 +83,11 @@ const subtotal = cart && cart.items ? cart.items.reduce((total, item) => {
       paymentMode: selectedPaymentMethod
     };
 
+    console.log("second it comes");
+      console.log(orderData);
     try
     {
-      const response=await api.post('/orders',orderData,{
+      const response=await axios.post('http://localhost:5000/api/orders',orderData,{
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
@@ -159,7 +187,7 @@ const subtotal = cart && cart.items ? cart.items.reduce((total, item) => {
                 <div className="mt-6 space-y-2">
                   <div className="flex items-center gap-x-3">
                     <input
-                      id="card"
+                      // id="card"
                       name="paymentMethod"
                       type="radio"
                       value="card"
@@ -172,7 +200,7 @@ const subtotal = cart && cart.items ? cart.items.reduce((total, item) => {
                   </div>
                   <div className="flex items-center gap-x-3">
                     <input
-                      id="card"
+                      // id="card"
                       name="paymentMethod"
                       type="radio"
                       value="card"

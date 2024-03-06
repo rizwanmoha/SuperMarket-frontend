@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getCartTotal } from "../../features/cartReducer";
@@ -7,18 +7,48 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuthenticate } from "@/context/AuthContext";
+import api from "../../api/api";
 
 function CartCheck() {
   // const { cartTotal, cart, cartQuantity } = useSelector((state) => state.cart);
-
+  const [sideCart , setSideCart] = useState([]);
   const { cart }=useAuthenticate();
+  console.log("this is cart");
   console.log(cart);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get("/cart", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+        const data = response.data;
+        // console.log(response.data.items);
+        setSideCart(response.data.items);
+        console.log("cart check");
+        console.log(sideCart);
+      } catch (error) {
+        console.error(`Error fetching blogs: ${error}`);
+      } finally {
+        // setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+
+
+
 //   const totalPrice = cart.items.reduce((total, item) => {
 //     return total + (item.product.price * item.quantity);
 // }, 0);
-const totalPrice = cart && cart.items ? cart.items.reduce((total, item) => {
+const totalPrice = sideCart && sideCart.items ? sideCart.items.reduce((total, item) => {
   return total + (item.product.price * item.quantity);
 }, 0) : 0;
+
+console.log(totalPrice);
 
 
 

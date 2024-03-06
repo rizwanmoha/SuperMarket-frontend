@@ -24,6 +24,7 @@ const Cart2 = () => {
         // console.log(response.data.items);
         setProducts(response.data.items);
         // dispatch(setCart(data));
+        console.log(products);
       } catch (error) {
         console.error(`Error fetching blogs: ${error}`);
       } finally {

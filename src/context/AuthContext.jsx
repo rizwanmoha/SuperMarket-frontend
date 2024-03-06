@@ -147,7 +147,10 @@ const AuthProvider = ({ children }) => {
                 }
             });
             const { data } = response;
+
             setCart(data); // Assuming backend returns the entire cart data
+            console.log("In authentication cart");
+            console.log(cart);
             localStorage.setItem("cart", JSON.stringify(data)); // Update local storage
         } catch (error) {
             console.log("Error fetching cart from backend:", error.message);

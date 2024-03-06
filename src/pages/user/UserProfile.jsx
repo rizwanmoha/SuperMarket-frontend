@@ -12,7 +12,8 @@ import './UserProfile.css'
 import ChangePassword from '../../components/UserProfile/ChangePassword'
 // import YourOrders from '../../components/UserProfile/YourOrders'
 import UserAddress from '../../components/UserProfile/UserAddress'
-// import LegalNotice from '../../COMPONENTS/UserProfile/LegalNotice'
+import Orders from './Orders';
+// import LegalNotice  from '../../COMPONENTS/UserProfile/LegalNotice'
 
 const UserProfile = () => {
 
@@ -40,6 +41,7 @@ const UserProfile = () => {
               {activepage === 'changepassword' && <ChangePassword/>}
               {/* {activepage === 'yourorders' && <YourOrders/>} */}
               {activepage === 'address' && <UserAddress/>}
+              {activepage ==='orders' &&  <Orders /> }
               {/* {activepage === 'legalnotice' && <LegalNotice/>} */}
             </div>
          </div>

@@ -36,7 +36,7 @@ const MyOrders = () => {
         <HeaderTitle title="Your Orders" subtitle="Order id" />
         
           <div className="container mx-auto px-4 py-8">
-              <h1 className="text-3xl font-semibold mb-8">Track My Orders</h1>
+              <h1 className="text-3xl font-semibold mb-8">Track Your Orders</h1>
               {sampleOrders.length === 0 ? (
                   <p className="text-lg">No orders to track</p>
               ) : (

@@ -20,9 +20,9 @@ const OrderCard = ({ order }) => {
                         </div>
                     ))}
                 </div>
-                <p className="text-sm font-medium mb-2">Total: ${order.total.toFixed(2)}</p>
+                <p className="text-sm font-medium mb-2">Total: ${order.totalAmount.toFixed(2)}</p>
                 <p className="text-sm font-medium mb-2">Status: {order.status}</p>
-                <p className="text-sm font-medium mb-2">Tracking Info: {order.trackingInfo}</p>
+                <p className="text-sm font-medium mb-2">Payment Mode: {order.paymentMode}</p>
             </div>
         </div>
     );
