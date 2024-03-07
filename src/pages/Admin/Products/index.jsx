@@ -5,6 +5,7 @@ import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { Card, useTheme } from "@mui/material";
 import api from "../../../api/api";
+import axios from 'axios';
 import { toast } from "react-toastify";
 import UpdateProductModal from "../../../components/AdminDashboard/UpdateProductModal";
 import CustomProductModal from "../../../components/dashboard/CustomProductModal";
@@ -43,10 +44,12 @@ const handleCloseModal = () => {
         console.error("Deletion of product failed", err);
       }
     };
+
+    // 178 {product.images[0].source}
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get("/admin/products", {
+        const response = await axios.get("http://localhost:5000/api/admin/products", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -54,6 +57,7 @@ const handleCloseModal = () => {
         console.log(response);
         const data = response.data;
         setProducts(data);
+        console.log(products);
       } catch (error) {
         console.error(`Error fetching blogs: ${error}`);
       } finally {
@@ -61,7 +65,7 @@ const handleCloseModal = () => {
       }
     };
     fetchProducts();
-  }, [products]);
+  }, []);
   return (
     <Box
       sx={{
@@ -171,7 +175,7 @@ const handleCloseModal = () => {
                       },
                     }}
                   >
-                    <Box sx={{ maxHeight: "200px" }}>
+                    {/* <Box sx={{ maxHeight: "200px" }}>
                       <img
                         src={product.images[0].source}
                         style={{
@@ -182,7 +186,23 @@ const handleCloseModal = () => {
                         width="100%"
                         alt={product.name} // don't forget alt attribute for accessibility
                       />
-                    </Box>
+                    </Box> */}
+                    <Box sx={{ maxHeight: "200px" }}>
+          {product.images && product.images.length > 0 && product.images[0].source ? (
+            <img
+              src={product.images[0].source}
+              style={{
+                borderRadius: "0.75rem",
+                objectFit: "cover",
+                height: "200px",
+              }}
+              width="100%"
+              alt={product.name} // don't forget alt attribute for accessibility
+            />
+          ) : (
+            <p>No image available</p>
+          )}
+        </Box>
                     <Box
                       sx={{
                         display: "flex",
