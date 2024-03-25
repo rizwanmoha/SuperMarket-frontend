@@ -9,7 +9,7 @@ const Orders = () => {
   useEffect(()=>{
       const fetchOrders = async() =>{
           try{
-            const response = await axios.get("http://localhost:5000/api/orders/user" , {
+            const response = await axios.get("https://supermarket-backend-u1dn.onrender.com/api/orders/user" , {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
               },

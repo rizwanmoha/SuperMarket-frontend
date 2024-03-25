@@ -49,7 +49,7 @@ const handleCloseModal = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/admin/products", {
+        const response = await axios.get("https://supermarket-backend-u1dn.onrender.com/api/admin/products", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },

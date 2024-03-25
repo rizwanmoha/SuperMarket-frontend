@@ -87,7 +87,7 @@ const subtotal = products && products.reduce((total, item) => {
       console.log(orderData);
     try
     {
-      const response=await axios.post('http://localhost:5000/api/orders',orderData,{
+      const response=await axios.post('https://supermarket-backend-u1dn.onrender.com/api/orders',orderData,{
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }

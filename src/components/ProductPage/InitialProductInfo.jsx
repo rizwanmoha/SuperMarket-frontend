@@ -122,7 +122,7 @@ const InitialProductInfo = ({ productData, id }) => {
       //   headers: {
       //     Authorization: `Bearer ${localStorage.getItem("token")}`
       //   });
-      const response = await axios.post("http://localhost:5000/api/cart", {
+      const response = await axios.post("https://supermarket-backend-u1dn.onrender.com/api/cart", {
     productId: id,
     quantity: buyInfo.quantity
       }, {
