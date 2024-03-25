@@ -490,14 +490,14 @@ const ProductSearchPage = () => {
           </div>
         </div>
       </div>
-      <div className="self-center mt-8 ">
+      {/* <div className="self-center mt-8 ">
         <Pagination
           color="primary"
           count={10}
           page={page}
           onChange={handleChange}
         />
-      </div>
+      </div> */}
       <div className="my-4"></div>
     </div>
   );
