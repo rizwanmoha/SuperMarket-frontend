@@ -56,6 +56,10 @@ const HeaderHome = () => {
     const handleSearchInputChange = (event) => {
         setSearchInput(event.target.value);
     };
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const isAdmin = storedUser && storedUser.isAdmin;
+    const isNotSeller = storedUser && !storedUser.isSeller;
+    const dashboardLink = isAdmin ? "/admin" : "/dashboard";
 
     const handleSearch = async () => {
       // Logic for search functionality
@@ -105,7 +109,7 @@ const HeaderHome = () => {
                             <span className='text-white text-2xl font-bold'>
                                 <LuMountainSnow />
                             </span>
-                            <h1 className="text-white text-2xl font-bold"> RUGGED</h1>
+                            <h1 className="text-white text-2xl font-bold"> Super Market</h1>
                         </div>
                     </a>
                 </div>
@@ -150,6 +154,24 @@ const HeaderHome = () => {
                                 className="text-white uppercase hover:text-cyan-500 hover:underline hover:underline-offset-4"
                             >
                                 Contact
+                            </a>
+                        </li>
+                        { isNotSeller && (
+    <li>
+        <a
+            href="/becomeseller"
+            className="text-white uppercase hover:text-cyan-500 hover:underline hover:underline-offset-4"
+        >
+            Become Seller
+        </a>
+    </li>
+)}
+                        <li>
+                            <a
+                                href={dashboardLink}
+                                className="text-white uppercase hover:text-cyan-500 hover:underline hover:underline-offset-4"
+                            >
+                                Dashboard
                             </a>
                         </li>
                         {/* ... Other navigation links ... */}

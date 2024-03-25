@@ -31,8 +31,8 @@ const Orders = () => {
         console.error("Order placing failed", err);
       }
     };
-    getAllUsers(); // Call the function when the component mounts
-  }, [datausers]);
+    getAllUsers(); // Call the function when the component mounts datausers
+  }, []);
   //   console.log(data);
   const columns = [
     {

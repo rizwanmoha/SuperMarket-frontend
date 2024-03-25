@@ -26,7 +26,8 @@ const SinglePostBlog = () => {
         console.log(response.data);
 
         // setPost(response.data);
-        setContent(response.data.content);
+        setContent(response.data);
+        
       }
       catch (err) {
         console.error("Error fetching blog details:", err);
@@ -65,33 +66,33 @@ const SinglePostBlog = () => {
   return (
     <div className='flex flex-col'>
       {
-        post ? (
+        content ? (
           <>
-          <div className='bg-cover bg-center h-[35vh]' style={{ backgroundImage: `url(https://picsum.photos/800/600)` }} />
+          <div className='bg-cover bg-center h-[35vh]' style={{ backgroundImage: `url(${content.imgSrc})` }} />
       <div className='flex mx-8 md:mx-16 lg:mx-[12vw] gap-4 p-4'>
         <div className='hidden lg:flex flex-col gap-2'>
           <p className='uppercase text-slate-500 mb-1'>share:</p>
           <RiFacebookFill className='rounded-full hover:text-purple-500 hover:border border-purple-500 bg-purple-500 hover:bg-white text-white text-4xl p-2' />
           <BiLogoInstagramAlt className='rounded-full hover:text-pink-500 hover:border border-pink-500 bg-pink-500 hover:bg-white text-white text-4xl p-2' />
           <FaTwitter className='rounded-full hover:text-blue-400 hover:border border-blue-400 bg-blue-400 hover:bg-white text-white text-4xl p-2' />
-          <AiFillYoutube className='rounded-full hover:text-red-500 hover:border border-red-500 bg-red-500 hover:bg-white text-white text-4xl p-2' />
+          {/* <AiFillYoutube className='rounded-full hover:text-red-500 hover:border border-red-500 bg-red-500 hover:bg-white text-white text-4xl p-2' /> */}
         </div>
         <div className='flex flex-col gap-4'>
-          <h2 className='text-3xl font-semibold'>{post.title}</h2>
+          <h2 className='text-3xl font-semibold'>{content.title}</h2>
           {/* Render other blog details like date, commentNo, category */}
-          <p className='text-sm text-gray-500'>Date: {post.date}</p>
-          <p className='text-sm text-gray-500'>Comments: {post.commentNo}</p>
+          <p className='text-sm text-gray-500'>Date: {content.createdAt}</p>
+          <p className='text-sm text-gray-500'>Comments: {content.comments.length}</p>
           <div className='prose lg:prose-lg'>
             {/* <p>{post.content}</p> */}
-            <p dangerouslySetInnerHTML={{ __html: content }}></p>
-            <p>{post.content}</p>
+            {/* <p dangerouslySetInnerHTML={{ __html: content }}></p> */}
+            <p>{content.content}</p>
             {/* Add more paragraphs of blog content as needed */}
           </div>
           <form onSubmit={handleCommentSubmit} className='flex flex-col gap-4'>
             <textarea
               value={comment}
               onChange={handleCommentChange}
-              className='border rounded-lg p-2 w-3/4 resize-none focus:outline-none focus:border-blue-500'
+              className='border rounded-lg p-2 w-full resize-none focus:outline-none focus:border-blue-500'
               placeholder='Add your comment...'
               rows={4}
             ></textarea>

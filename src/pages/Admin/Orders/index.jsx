@@ -105,14 +105,15 @@ const Orders = () => {
 
     getPlacedOrders(); // Call the function when the component mounts
     getShippedOrders(); // Call the function when the component mounts
-    getCancelledOrders(); // Call the function when the component mounts
-  }, [dataPlaced,dataShipped,dataCancelled]);
+    getCancelledOrders(); // Call the function when the component mounts  // dataPlaced,dataShipped,dataCancelled
+  }, []);
 //   console.log(data);
   const columns = [
     {
       field: "shippingAddress",
       headerName: "User Name",
       flex: 0.5,
+      valueGetter: (params) => params.row.shippingAddress.name
     },
     {
       field: "_id",
@@ -156,6 +157,7 @@ const Orders = () => {
        field: "shippingAddress",
        headerName: "User Name",
        flex: 0.5,
+       valueGetter: (params) => params.row.shippingAddress.name
      },
      {
        field: "_id",
@@ -190,6 +192,7 @@ const Orders = () => {
         field: "shippingAddress",
         headerName: "User Name",
         flex: 0.5,
+        valueGetter: (params) => params.row.shippingAddress.name
       },
       {
         field: "_id",

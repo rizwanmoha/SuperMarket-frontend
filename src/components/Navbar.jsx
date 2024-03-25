@@ -26,6 +26,11 @@ const Navbar = () => {
 
   const cartQuantity = cart?.items?.length;
   const wishlistQuantity = wishlist.length;
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+    const isAdmin = storedUser && storedUser.isAdmin;
+    const isNotSeller = storedUser && !storedUser.isSeller;
+
+    const dashboardLink = isAdmin ? "/admin" : "/dashboard";
 
   useEffect(() => {
 
@@ -145,6 +150,24 @@ const handleHoverLeave = () => {
                                 className="text-white uppercase hover:text-cyan-500 hover:underline hover:underline-offset-4"
                             >
                                 Contact
+                            </a>
+                        </li>
+                        { isNotSeller && (
+    <li>
+        <a
+            href="/becomeseller"
+            className="text-white uppercase hover:text-cyan-500 hover:underline hover:underline-offset-4"
+        >
+            Become Seller
+        </a>
+    </li>
+)}
+                        <li>
+                            <a
+                                href={dashboardLink}
+                                className="text-white uppercase hover:text-cyan-500 hover:underline hover:underline-offset-4"
+                            >
+                                Dashboard
                             </a>
                         </li>
                         {/* ... Other navigation links ... */}
